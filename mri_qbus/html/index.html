@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>mri_qbus</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app" class="hidden">
+
+        <!-- ── Sidebar ── -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🚌</span>
+                <span class="logo-text">ÔnibusCo</span>
+            </div>
+
+            <nav class="nav">
+                <button class="nav-btn active" data-tab="routes">
+                    <span>🗺️</span> Rotas
+                </button>
+                <button class="nav-btn" data-tab="garage">
+                    <span>🚌</span> Garagem
+                </button>
+                <button class="nav-btn" data-tab="history">
+                    <span>📋</span> Histórico
+                </button>
+                <button class="nav-btn" data-tab="ranking">
+                    <span>🏆</span> Ranking
+                </button>
+            </nav>
+
+            <!-- Player Card -->
+            <div class="player-card">
+                <div class="player-name" id="pName">Motorista</div>
+                <div class="player-level" id="pLevelLabel">Carregando...</div>
+                <div class="xp-bar-wrap">
+                    <div class="xp-bar-fill" id="pXPBar" style="width:0%"></div>
+                </div>
+                <div class="xp-info">
+                    <span id="pXP">0 XP</span>
+                    <span id="pXPNext">— para o próximo</span>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <span class="stat-val" id="pRoutes">0</span>
+                        <span class="stat-lbl">Rotas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val" id="pStops">0</span>
+                        <span class="stat-lbl">Paradas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val" id="pRank">#–</span>
+                        <span class="stat-lbl">Ranking</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="" id="cancelRouteBtn" style="display:none"></button>
+            <button class="btn-store" id="storeBtn">🅿️ Guardar Ônibus</button>
+            <button class="close-btn" id="closeBtn">✕ Fechar</button>
+        </aside>
+
+        <!-- ── Main Content ── -->
+        <main class="content">
+
+            <!-- Tab: Rotas -->
+            <section class="tab active" id="tab-routes">
+                <div class="section-header">
+                    <h2>Rotas Disponíveis</h2>
+                    <p class="sub">Escolha uma linha e dirija com responsabilidade</p>
+                </div>
+                <div class="card-grid" id="routeList">
+                    <p class="empty-msg">Nenhuma rota disponível no momento.</p>
+                </div>
+            </section>
+
+            <!-- Tab: Garagem -->
+            <section class="tab" id="tab-garage">
+                <div class="section-header">
+                    <h2>Garagem</h2>
+                    <p class="sub">Alugue ou compre seu ônibus</p>
+                </div>
+
+                <div class="garage-split">
+                    <div>
+                        <h3 class="garage-title">🔑 Aluguel</h3>
+                        <div class="card-grid" id="rentList"></div>
+                    </div>
+                    <div>
+                        <h3 class="garage-title">🏷️ Compra</h3>
+                        <div class="card-grid" id="buyList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Histórico -->
+            <section class="tab" id="tab-history">
+                <div class="section-header">
+                    <h2>Histórico de Rotas</h2>
+                    <p class="sub">Suas últimas 20 entregas</p>
+                </div>
+                <div class="history-list" id="historyList">
+                    <p class="empty-msg">Sem histórico ainda.</p>
+                </div>
+            </section>
+
+            <!-- Tab: Ranking -->
+            <section class="tab" id="tab-ranking">
+                <div class="section-header">
+                    <h2>Ranking Global</h2>
+                    <div class="rank-tabs">
+                        <button class="rank-tab active" data-cat="xp">XP</button>
+                        <button class="rank-tab" data-cat="level">Nível</button>
+                        <button class="rank-tab" data-cat="routes">Rotas</button>
+                    </div>
+                </div>
+                <div class="ranking-list" id="rankingList">
+                    <p class="empty-msg">Carregando...</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ── HUD de Rota Ativa (Overlay fora do painel) ── -->
+    </div>
+
+    <!-- HUD minimizado, sempre visível durante rota -->
+    <div id="hud" class="hud hidden">
+        <div class="hud-line">
+            <span>🚌 Linha</span>
+            <strong id="hudRoute">—</strong>
+        </div>
+        <div class="hud-line">
+            <span>Parada</span>
+            <strong id="hudStop">—</strong>
+        </div>
+        <div class="hud-cond-bar">
+            <div class="hud-cond-fill" id="hudCondFill" style="width:100%"></div>
+        </div>
+        <div class="hud-cond-label">Satisfação: <span id="hudCond">100</span>%</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
